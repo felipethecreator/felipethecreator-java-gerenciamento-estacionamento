@@ -45,7 +45,8 @@ public class Estacionamento {
     }
 
     public void registrarSaida(String placa) {
-        for (Vaga vaga : vagas) {
+        for (int i = 0; i < vagas.size(); i++) {
+            Vaga vaga = vagas.get(i);
             if (!vaga.isDisponivel() && vaga.getVeiculo().getPlaca().equals(placa)) {
                 vaga.liberar();
                 Ticket ticket = encontrarTicketPorPlaca(placa);
@@ -60,18 +61,20 @@ public class Estacionamento {
         System.out.println("Veículo não encontrado.");
     }
 
-    private Ticket encontrarTicketPorPlaca(String placa) {
-        for (Ticket ticket : tickets) {
-            if (ticket.getVeiculo().getPlaca().equals(placa) && ticket.getHoraSaida() == null) {
-                return ticket;
-            }
+private Ticket encontrarTicketPorPlaca(String placa) {
+    for (int i = 0; i < tickets.size(); i++) {
+        Ticket ticket = tickets.get(i);
+        if (ticket.getVeiculo().getPlaca().equals(placa) && ticket.getHoraSaida() == null) {
+            return ticket;
         }
-        return null;
     }
+    return null;
+}
 
-    public void exibirVagas() {
-        for (Vaga vaga : vagas) {
-            System.out.println("Vaga " + vaga.getNumero() + " - Tipo: " + vaga.getTipo() + " - Disponível: " + vaga.isDisponivel());
+public void exibirVagas() {
+    for (int i = 0; i < vagas.size(); i++) {
+        Vaga vaga = vagas.get(i);
+        System.out.println("Vaga " + vaga.getNumero() + " - Tipo: " + vaga.getTipo() + " - Disponível: " + vaga.isDisponivel());
         }
     }
 }
